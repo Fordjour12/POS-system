@@ -26,7 +26,9 @@ export const actions = {
     const { username, password } = form.data
 
     const workerExists = await db.select({ username: workers.username }).from(workers).where(eq(workers.username, username))
-    if (workerExists) {
+    console.log("tesing workerExits", workerExists)
+
+    if (workerExists.length === 1) {
       return setError(form, "username", "Username does exist")
     }
 
@@ -40,7 +42,6 @@ export const actions = {
     }).returning({ insertedId: workers.id })
 
     console.log(createWorker)
-
     return {
       form,
     }
