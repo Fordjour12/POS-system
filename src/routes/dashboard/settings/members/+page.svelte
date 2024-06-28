@@ -33,14 +33,7 @@
                                 when you're done.
                             </Sheet.Description>
                         </Sheet.Header>
-                        <AddMembers />
-                        <Sheet.Footer>
-                            <Sheet.Close asChild let:builder>
-                                <Button builders={[builder]} type="submit">
-                                    Save Changes
-                                </Button>
-                            </Sheet.Close>
-                        </Sheet.Footer>
+                        <AddMembers data={data.form} />
                     </Sheet.Content>
                 </Sheet.Root>
             </Card.Footer>
