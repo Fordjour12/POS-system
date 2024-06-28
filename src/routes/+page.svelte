@@ -9,6 +9,7 @@
   >
     Welcome to SvelteKit
   </h1>
+  <!-- Login or Jump to dashboard -->
   <Button class="my-4">
     <a href="/dashboard" class="font-bold">Jump to dashboard</a>
   </Button>
