@@ -1,12 +1,36 @@
 <script lang="ts">
+    import { cartProduct } from "$lib/store/cart.svelte";
     import { Button } from "@/components/button/index";
     import * as Card from "@/components/card/index";
+    import * as Sheet from "@/components/sheet/index";
     import type { PageData } from "./$types";
+    import CartItem from "./(component)/cart.svelte";
 
     let { data }: { data: PageData } = $props();
 
     let category_id = $state(1);
 </script>
+
+<div class="flex justify-end mx-6">
+    <Sheet.Root preventScroll>
+        <Sheet.Trigger let:builder>
+            <Button builders={[builder]}>Cart</Button>
+        </Sheet.Trigger>
+        <Sheet.Content side="right">
+            <Sheet.Header>
+                <Sheet.Title>Cart</Sheet.Title>
+                <Sheet.Description>
+                    All added Products are here
+                </Sheet.Description>
+            </Sheet.Header>
+            <div class="overflow-scroll h-screen">
+                {#each cartProduct as cartItem}
+                    <CartItem {cartItem} />
+                {/each}
+            </div>
+        </Sheet.Content>
+    </Sheet.Root>
+</div>
 
 <div>
     {#if data.categoryData}
@@ -21,7 +45,7 @@
                     />
                     <button
                         type="submit"
-                        class="py-8"
+                        class="inline-flex items-center justify-center p-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                         class:bg-red-500={category_id === cat.id}
                         onclick={() => (category_id = cat.id)}
                     >
@@ -36,7 +60,9 @@
     {/if}
 </div>
 
-{#if data.menuData}
+{#if data.menuData.length === 0}
+    <p class="font-bold font-sans text-3xl">No menu items found</p>
+{:else if data.menuData}
     <div class="grid grid-cols-3 gap-5 mx-6">
         {#each data.menuData as item}
             <Card.Root>
@@ -54,7 +80,15 @@
                 <Card.Footer>
                     <div class="flex justify-between items-baseline w-full">
                         <p>{item.price} ghs</p>
-                        <Button variant="default">Buy</Button>
+                        <Button
+                            onclick={() => {
+                                cartProduct.push({
+                                    id: item.id,
+                                    quantity: 1,
+                                    menu: item,
+                                });
+                            }}>Buy</Button
+                        >
                     </div>
                 </Card.Footer>
             </Card.Root>
