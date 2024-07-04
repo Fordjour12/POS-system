@@ -5,11 +5,12 @@ import { customer } from "./customer";
 export const orders = pgTable("orders", {
     id: serial("id").primaryKey(),
     customer: integer("customer_name"),
-    order_date: timestamp("order_date"),
+    order_date: timestamp("order_date", { mode: "string" }).notNull().defaultNow(),
     status: varchar("status", { length: 50 }).default("fulfilled"),
     total_amount: numeric("total_amount", { precision: 10, scale: 2 }),
-    created_at: timestamp("created_at"),
-    updated_at: timestamp("updated_at"),
+    createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
+
 });
 
 export const orderRelations = relations(orders, ({ one }) => ({

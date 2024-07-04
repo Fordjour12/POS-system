@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, serial, varchar, timestamp, integer, numeric } from "drizzle-orm/pg-core";
+import { integer, numeric, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import category from "./category";
 
 export const menu = pgTable("menu", {
@@ -9,8 +9,8 @@ export const menu = pgTable("menu", {
 	image: text("image"),
 	description: text("description"),
 	category_id: integer("category_id"),
-	created_at: timestamp("created_at"),
-	updated_at: timestamp("updated_at"),
+	createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+	updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 })
 
 
