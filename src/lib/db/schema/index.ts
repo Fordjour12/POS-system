@@ -1,3 +1,5 @@
-export { workers, insertWorkerSchema, selectWorkerSchema } from "./workers"
 export { default as category } from "./category"
+export { customer } from "./customer"
 export { menu, menuRelations } from "./menu"
+export { orderRelations, orders } from "./orders"
+export { insertWorkerSchema, selectWorkerSchema, workers } from "./workers"
