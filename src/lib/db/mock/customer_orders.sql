@@ -22,7 +22,7 @@ INSERT INTO customer (name, email) VALUES
 ('Tiffany Hall', 'tiffany.hall@example.com');
 
 -- Insert mock data into orders table
-INSERT INTO orders (customer_name, amount) VALUES
+INSERT INTO orders (customer_name, total_amount) VALUES
 ('Alice Johnson', 120.50),
 ('Bob Smith', 75.25),
 ('Charlie Brown', 200.00),
