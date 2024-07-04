@@ -1,12 +1,13 @@
 <script lang="ts">
-    import type { CartProduct } from "$lib/store/cart.svelte";
+    import { type CartProduct } from "$lib/store/cart.svelte";
     import { Button } from "@/components/button/index";
 
     type Props = {
         cartItem: CartProduct;
+        removeItem: (id: number) => void;
     };
 
-    let { cartItem }: Props = $props();
+    let { cartItem = $bindable(), removeItem }: Props = $props();
 </script>
 
 <div class=" flex items-center justify-between border-b py-2">
@@ -23,8 +24,17 @@
         </div>
     </div>
     <div class="flex items-center gap-3">
-        <Button variant="outline">-</Button>
+        <Button
+            variant="outline"
+            onclick={() => {
+                if (cartItem.quantity === 1) {
+                    removeItem(cartItem.menu.id);
+                } else {
+                    cartItem.quantity--;
+                }
+            }}>-</Button
+        >
         <p>{cartItem.quantity}</p>
-        <Button variant="outline">+</Button>
+        <Button variant="outline" onclick={() => cartItem.quantity++}>+</Button>
     </div>
 </div>

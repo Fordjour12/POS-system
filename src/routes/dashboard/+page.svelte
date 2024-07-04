@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { cartProduct } from "$lib/store/cart.svelte";
+    import type { CartProduct } from "$lib/store/cart.svelte";
     import { Button } from "@/components/button/index";
     import * as Card from "@/components/card/index";
     import * as Sheet from "@/components/sheet/index";
@@ -9,12 +9,38 @@
     let { data }: { data: PageData } = $props();
 
     let category_id = $state(1);
+
+    let cartProduct = $state<CartProduct[]>([]);
+
+    const cartQuantity = $derived.by(() => {
+        let total = 0;
+        for (const prod of cartProduct) {
+            total += prod.quantity;
+        }
+
+        return total;
+    });
+
+    const removeItem = (id: number) => {
+        cartProduct = cartProduct.filter((prod) => prod.id !== id);
+    };
+
+    const addToCart = (item: CartProduct) => {
+        let index = cartProduct.findIndex((prod) => prod.id === item.id);
+
+        if (index === -1) {
+            cartProduct.push(item);
+        } else {
+            cartProduct[index].quantity++;
+        }
+    };
 </script>
 
+<!-- svelte-ignore non_reactive_update -->
 <div class="flex justify-end mx-6">
     <Sheet.Root preventScroll>
         <Sheet.Trigger let:builder>
-            <Button builders={[builder]}>Cart</Button>
+            <Button builders={[builder]}>Cart {cartQuantity}</Button>
         </Sheet.Trigger>
         <Sheet.Content side="right">
             <Sheet.Header>
@@ -23,10 +49,16 @@
                     All added Products are here
                 </Sheet.Description>
             </Sheet.Header>
-            <div class="overflow-scroll h-screen">
-                {#each cartProduct as cartItem}
-                    <CartItem {cartItem} />
-                {/each}
+            <div class="overflow-scroll">
+                {#if cartProduct.length === 0}
+                    <p class="font-bold font-sans text-3xl">No items in cart</p>
+                {:else if cartProduct}
+                    {#each cartProduct as _, i}
+                        <!-- <CartItem {cartItem} {removeItem} /> -->
+                        <CartItem bind:cartItem={cartProduct[i]} {removeItem} />
+                    {/each}
+                    <Button>Checkout</Button>
+                {/if}
             </div>
         </Sheet.Content>
     </Sheet.Root>
@@ -81,13 +113,12 @@
                     <div class="flex justify-between items-baseline w-full">
                         <p>{item.price} ghs</p>
                         <Button
-                            onclick={() => {
-                                cartProduct.push({
+                            onclick={() =>
+                                addToCart({
                                     id: item.id,
                                     quantity: 1,
                                     menu: item,
-                                });
-                            }}>Buy</Button
+                                })}>Buy</Button
                         >
                     </div>
                 </Card.Footer>
