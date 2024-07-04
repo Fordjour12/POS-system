@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ url }) => {
     const id = url.searchParams.get('category_id')
 
     const categoryData = await db.select().from(category)
-    const menuData = await db.select().from(menu).where(eq(menu.category_id, Number(id)))
+    const menuData = await db.select().from(menu).where(eq(menu.category_id, Number(id) || 1))
 
 
     return {
