@@ -7,7 +7,7 @@
     class=" font-extrabold text-8xl text-transparent
   bg-gradient-to-r from-red-600 to-yellow-300 bg-clip-text"
   >
-    Welcome to SvelteKit
+    Pos System
   </h1>
   <!-- Login or Jump to dashboard -->
   <Button class="my-4">

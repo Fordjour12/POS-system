@@ -1,6 +1,6 @@
 import db from "@/db/index"
 import { workers } from "@/db/schema"
-import { fail, type Actions } from "@sveltejs/kit"
+import { fail, redirect, type Actions } from "@sveltejs/kit"
 import { eq } from "drizzle-orm"
 import { Argon2id } from "oslo/password"
 import { setError, superValidate } from "sveltekit-superforms"
@@ -25,25 +25,30 @@ export const actions = {
 
     const { username, password } = form.data
 
-    const workerExists = await db.select({ username: workers.username }).from(workers).where(eq(workers.username, username))
-    console.log("tesing workerExits", workerExists)
+    const workerExists = await db.select({
+      username: workers.username,
+      password: workers.password
+    }).from(workers).where(eq(workers.username, username))
 
-    if (workerExists.length === 1) {
+
+    if (workerExists.length !== 1) {
       return setError(form, "username", "Username does exist")
     }
 
-    const hashPassword = await new Argon2id().hash(password)
 
-
-    const createWorker = await db.insert(workers).values({
-      username: username,
-      password: hashPassword,
-      role: "admin"
-    }).returning({ insertedId: workers.id })
-
-    console.log(createWorker)
-    return {
-      form,
+    const validatePassword = await new Argon2id().verify(workerExists[0].password, password)
+    if (!validatePassword) {
+      return fail(400, {
+        form: setError(form, "password", "Password is incorrect")
+      })
     }
+
+    redirect(302, "/dashboard")
+
+    // return redirect(302, "/dashboard")
+
+    // return {
+    //   form,
+    // }
   }
 } satisfies Actions
