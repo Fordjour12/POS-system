@@ -1,7 +1,10 @@
 <script lang="ts">
     import type { CartProduct } from "$lib/store/cart.svelte";
-    import { Button } from "@/components/button/index";
+    import { Button, buttonVariants } from "@/components/button/index";
     import * as Card from "@/components/card/index";
+    import * as Dialog from "@/components/dialog/index";
+    import { Input } from "@/components/input/index";
+    import { Label } from "@/components/label/index";
     import * as Sheet from "@/components/sheet/index";
     import type { PageData } from "./$types";
     import CartItem from "./(component)/cart.svelte";
@@ -14,11 +17,16 @@
 
     const cartQuantity = $derived.by(() => {
         let total = 0;
+        let totalAmount = 0;
         for (const prod of cartProduct) {
             total += prod.quantity;
+            totalAmount = total * Number(prod.menu.price);
         }
 
-        return total;
+        return {
+            total,
+            totalAmount,
+        };
     });
 
     const removeItem = (id: number) => {
@@ -40,7 +48,7 @@
 <div class="flex justify-end mx-6">
     <Sheet.Root preventScroll>
         <Sheet.Trigger let:builder>
-            <Button builders={[builder]}>Cart {cartQuantity}</Button>
+            <Button builders={[builder]}>Cart {cartQuantity.total}</Button>
         </Sheet.Trigger>
         <Sheet.Content side="right">
             <Sheet.Header>
@@ -57,7 +65,74 @@
                         <!-- <CartItem {cartItem} {removeItem} /> -->
                         <CartItem bind:cartItem={cartProduct[i]} {removeItem} />
                     {/each}
-                    <Button>Checkout</Button>
+                    <Sheet.Footer class="py-4">
+                        <div class="flex justify-between items-baseline w-full">
+                            <p>
+                                Total: {cartQuantity.totalAmount.toFixed(2)} ghs
+                            </p>
+                            <Dialog.Root>
+                                <Dialog.Trigger
+                                    class={buttonVariants({
+                                        variant: "default",
+                                    })}
+                                >
+                                    checkout
+                                </Dialog.Trigger>
+                                <Dialog.Content>
+                                    <Dialog.Title>Order Details</Dialog.Title>
+                                    <div>
+                                        <div class="grid gap-4 py-4">
+                                            <div
+                                                class="grid grid-cols-4 items-center gap-4"
+                                            >
+                                                <Label
+                                                    for="name"
+                                                    class="text-right"
+                                                    >Name</Label
+                                                >
+                                                <Input
+                                                    id="name"
+                                                    value="Pedro Duarte"
+                                                    class="col-span-3"
+                                                />
+                                            </div>
+                                            <div
+                                                class="grid grid-cols-4 items-center gap-4"
+                                            >
+                                                <Label
+                                                    for="username"
+                                                    class="text-right"
+                                                    >Username</Label
+                                                >
+                                                <Input
+                                                    id="username"
+                                                    value="@peduarte"
+                                                    class="col-span-3"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Dialog.Description>
+                                        <div class="flex flex-col gap-4">
+                                            {#each cartProduct as item}
+                                                <div
+                                                    class="flex justify-between"
+                                                >
+                                                    <p>{item.menu.name}</p>
+                                                    <p>{item.quantity}</p>
+                                                </div>
+                                            {/each}
+                                        </div>
+                                        <p>
+                                            Total: {cartQuantity.totalAmount.toFixed(
+                                                2,
+                                            )} ghs
+                                        </p>
+                                    </Dialog.Description>
+                                </Dialog.Content>
+                            </Dialog.Root>
+                        </div>
+                    </Sheet.Footer>
                 {/if}
             </div>
         </Sheet.Content>

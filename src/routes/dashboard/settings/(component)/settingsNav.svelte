@@ -8,4 +8,5 @@
         General
     </a>
     <a href="/dashboard/settings/members">Members</a>
+    <a href="/dashboard/settings/change-password">Security</a>
 </nav>
