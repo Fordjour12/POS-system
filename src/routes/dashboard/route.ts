@@ -25,7 +25,17 @@ export const pageRoutes: PageRoute = [
     icon: icons.BarChart
   }, {
     id: 3,
-    path: "/dashboard/reciept",
-    name: "Reciept",
+    path: "/dashboard/orders",
+    name: "Orders",
     icon: icons.Reciept
-  }]
+  }, {
+    id: 4,
+    path: "/dashboard/admin/inventory",
+    name: "Inventory",
+    icon: icons.Inventory
+  }, {
+    id: 5,
+    path: "/dashboard/admin/report",
+    name: "Report",
+    icon: icons.Report,
+  },]

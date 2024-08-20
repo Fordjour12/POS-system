@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { integer, numeric, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import category from "./category";
 
+// TODO: change name to menuItems 
 export const menu = pgTable("menu", {
 	id: serial("id").primaryKey(),
 	name: varchar("name", { length: 150 }),
