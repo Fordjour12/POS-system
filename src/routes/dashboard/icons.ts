@@ -4,4 +4,5 @@ export { default as Report } from "lucide-svelte/icons/file-text"
 export { default as House } from "lucide-svelte/icons/house"
 export { default as Reciept } from "lucide-svelte/icons/receipt-text"
 export { default as Settings } from "lucide-svelte/icons/settings"
+export { default as Setup } from "lucide-svelte/icons/sliders-vertical"
 

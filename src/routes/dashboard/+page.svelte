@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { CartProduct } from "$lib/store/cart.svelte";
     import { Button, buttonVariants } from "@/components/button/index";
-    import * as Card from "@/components/card/index";
     import * as Dialog from "@/components/dialog/index";
     import { Input } from "@/components/input/index";
     import { Label } from "@/components/label/index";
@@ -157,7 +156,7 @@
                         onclick={() => (category_id = cat.id)}
                     >
                         <div class="flex gap-6">
-                            <img src="" alt={cat.name} />
+                            <!-- <img src="" alt={cat.name} /> -->
                             <h3>{cat.name}</h3>
                         </div>
                     </button>
@@ -167,6 +166,7 @@
     {/if}
 </div>
 
+<!--
 {#if data.menuData.length === 0}
     <p class="font-bold font-sans text-3xl">No menu items found</p>
 {:else if data.menuData}
@@ -200,4 +200,4 @@
             </Card.Root>
         {/each}
     </div>
-{/if}
+{/if} -->

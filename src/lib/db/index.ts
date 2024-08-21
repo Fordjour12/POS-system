@@ -1,10 +1,9 @@
+import { config } from "dotenv"
 import { drizzle } from "drizzle-orm/postgres-js"
 import postgres from "postgres"
-import { config } from "dotenv"
 import * as schema from "./schema/index"
 
 config()
-
 
 const { DATABASE_URL } = process.env
 export const queryClient = postgres(DATABASE_URL, {

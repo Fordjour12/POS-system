@@ -3,7 +3,7 @@ import { integer, numeric, pgTable, serial, text, timestamp, varchar } from "dri
 import category from "./category";
 
 // TODO: change name to menuItems 
-export const menu = pgTable("menu", {
+export const menuItem = pgTable("menuItem", {
 	id: serial("id").primaryKey(),
 	name: varchar("name", { length: 150 }),
 	price: numeric("price", { precision: 10, scale: 2 }),
@@ -15,9 +15,9 @@ export const menu = pgTable("menu", {
 })
 
 
-export const menuRelations = relations(menu, ({ one }) => ({
+export const menuItemRelations = relations(menuItem, ({ one }) => ({
 	category: one(category, {
-		fields: [menu.category_id],
+		fields: [menuItem.category_id],
 		references: [category.id],
 	}),
 }))

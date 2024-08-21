@@ -1,1 +1,0 @@
-ALTER TABLE "orders" ALTER COLUMN "customer_name" SET DATA TYPE text;

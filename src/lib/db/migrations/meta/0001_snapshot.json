@@ -1,6 +1,6 @@
 {
-  "id": "8d147817-00fb-4780-ac2b-bc91ed2452c6",
-  "prevId": "8973bbd4-f1a3-48ee-bdfd-5d5629e32755",
+  "id": "284a69c0-af13-4823-b665-dd4b9d2b535b",
+  "prevId": "ef41e15f-6e4f-4369-a487-f20ef0320178",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -16,6 +16,12 @@
         },
         "category_name": {
           "name": "category_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category_description": {
+          "name": "category_description",
           "type": "text",
           "primaryKey": false,
           "notNull": true

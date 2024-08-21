@@ -5,57 +5,22 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1719239211763,
-      "tag": "0000_conscious_white_tiger",
+      "when": 1724166541633,
+      "tag": "0000_nappy_skrulls",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1719243019460,
-      "tag": "0001_fearless_radioactive_man",
+      "when": 1724183328549,
+      "tag": "0001_cuddly_cammi",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "7",
-      "when": 1719583748503,
-      "tag": "0002_romantic_vin_gonzales",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1719583911582,
-      "tag": "0003_rainy_ego",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1720064327538,
-      "tag": "0004_skinny_captain_midlands",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1720064541265,
-      "tag": "0005_misty_silvermane",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1720065473272,
-      "tag": "0006_steady_lady_bullseye",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1720070859801,
-      "tag": "0007_stale_shadow_king",
+      "when": 1724217524084,
+      "tag": "0002_dizzy_doomsday",
       "breakpoints": true
     }
   ]

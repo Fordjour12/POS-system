@@ -38,4 +38,11 @@ export const pageRoutes: PageRoute = [
     path: "/dashboard/admin/report",
     name: "Report",
     icon: icons.Report,
-  },]
+  }, {
+    id: 6,
+    path: "/dashboard/admin/setup",
+    name: "Setup",
+    icon: icons.Setup
+  }
+
+]

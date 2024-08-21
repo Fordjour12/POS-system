@@ -1,6 +1,6 @@
 {
-  "id": "a0f6d962-43a4-4d53-afee-38b6be157e7e",
-  "prevId": "8d147817-00fb-4780-ac2b-bc91ed2452c6",
+  "id": "f9c656a3-37e1-474b-b301-8820e0227835",
+  "prevId": "284a69c0-af13-4823-b665-dd4b9d2b535b",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -19,6 +19,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "category_description": {
+          "name": "category_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -26,8 +32,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.food": {
-      "name": "food",
+    "public.menuItem": {
+      "name": "menuItem",
       "schema": "",
       "columns": {
         "id": {
@@ -70,13 +76,15 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
