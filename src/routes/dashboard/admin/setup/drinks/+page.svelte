@@ -2,7 +2,7 @@
   import { Button } from "@/components/button/index";
   import * as Card from "@/components/card/index";
   import * as Sheet from "@/components/sheet/index";
-  import MealItem from "./mealItem.svelte";
+  import MealItem from "./drinks-item.svelte";
 
   let { data } = $props();
 </script>
@@ -27,7 +27,7 @@
           </Sheet.Trigger>
           <Sheet.Content side="right">
             <Sheet.Header>
-              <Sheet.Title>Edit Or Add New Meal</Sheet.Title>
+              <Sheet.Title>Edit Or Add New Drink</Sheet.Title>
               <Sheet.Description>
                 Make changes or create new set of your categories here. Click
                 save when you're done.

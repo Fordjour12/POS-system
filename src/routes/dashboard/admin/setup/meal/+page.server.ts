@@ -1,5 +1,5 @@
 import { db } from "@/db/index"
-import { category } from "@/db/schema"
+import { category, menuItem } from "@/db/schema"
 import { type Actions } from "@sveltejs/kit"
 import { fail, superValidate } from "sveltekit-superforms"
 import { zod } from "sveltekit-superforms/adapters"
@@ -27,7 +27,13 @@ export const actions = {
 
     const { name, description, image, price, category_id } = form.data
 
-
+    const createMeal = await db.insert(menuItem).values({
+      name: name,
+      description: description,
+      image: image,
+      price: String(price),
+      category_id: category_id
+    }).returning({ insertedId: menuItem.id })
 
     console.log("testing the form data", name, description, image, price, category_id)
 

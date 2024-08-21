@@ -9,9 +9,9 @@
         type SuperValidated,
     } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
-    import { mealItemSchema, type MealItemSchema } from "./schema";
+    import { drinksItemSchema, type DrinksItemSchema } from "./schema";
 
-    type Props = SuperValidated<Infer<MealItemSchema>>
+    type Props = SuperValidated<Infer<DrinksItemSchema>>
     type CategoriesProps = {
     description: string;
     name: string;
@@ -20,9 +20,8 @@
 
     let { data, categoryData }: { data: Props, categoryData:CategoriesProps  } = $props();
 
-
     const form = superForm(data.data, {
-        validators: zodClient(mealItemSchema),
+        validators: zodClient(drinksItemSchema),
     });
 
     const { form: formData, enhance, errors } = form;
@@ -30,6 +29,9 @@
         ? { label: $formData.category_id, value: $formData.category_id }
         : undefined;
 
+    let selectedIsAlcoholic = $formData.is_alcoholic
+        ? { label: $formData.is_alcoholic, value: $formData.is_alcoholic }
+        : undefined;
       
 </script>
 
@@ -37,7 +39,7 @@
 <form method="POST" use:enhance>
     <Form.Field {form} name="name">
         <Form.Control let:attrs>
-            <Form.Label>Meal Name</Form.Label>
+            <Form.Label>drinks Name</Form.Label>
             <Input
                 type="text"
                 {...attrs}
@@ -49,7 +51,7 @@
     </Form.Field>
     <Form.Field {form} name="description">
         <Form.Control let:attrs>
-            <Form.Label>Meal Description</Form.Label>
+            <Form.Label>drinks Description</Form.Label>
             <Input
                 {...attrs}
                 bind:value={$formData.description}
@@ -60,7 +62,7 @@
     </Form.Field>
     <Form.Field {form} name="price">
         <Form.Control let:attrs>
-            <Form.Label>Meal Price</Form.Label>
+            <Form.Label>drinks Price</Form.Label>
             <Input
                 {...attrs}
                 bind:value={$formData.description}
@@ -71,7 +73,7 @@
     </Form.Field>
     <Form.Field {form} name="image">
         <Form.Control let:attrs>
-            <Form.Label>Meal Image</Form.Label>
+            <Form.Label>drinks Image</Form.Label>
             <Input
                 {...attrs}
                 bind:value={$formData.description}
@@ -80,7 +82,7 @@
         </Form.Control>
         <Form.FieldErrors />
     </Form.Field>
-     <Form.Field {form} name="category_id">
+    <Form.Field {form} name="category_id">
         <Form.Control let:attrs>
             <Form.Label>Role</Form.Label>
             <Select.Root
@@ -111,5 +113,32 @@
         </Form.Control>
         <Form.FieldErrors />
     </Form.Field>
-    <Form.Button class="mt-4">Save New Category</Form.Button>
+
+ <Form.Field {form} name="is_alcoholic">
+        <Form.Control let:attrs>
+            <Form.Label>Is Alcoholic</Form.Label>
+            <Select.Root
+                selected={selectedCategory as Selected<boolean> | undefined}
+                onSelectedChange={(v) => {
+                    v && ($formData.is_alcoholic = v.value);
+                }}
+            >
+                <Select.Trigger {...attrs}>
+                    <Select.Value placeholder="Select Category" />
+                </Select.Trigger>
+                <Select.Content>
+                     <Select.Item value="true" label="True" /> 
+                     <Select.Item value="false" label="False" />
+                </Select.Content>
+            </Select.Root>
+            <input
+                {...attrs}
+                bind:value={$formData.category_id}
+                name={attrs.name}
+                hidden
+            />
+        </Form.Control>
+        <Form.FieldErrors />
+    </Form.Field>
+    <Form.Button class="mt-4">Save New Drink</Form.Button>
 </form>

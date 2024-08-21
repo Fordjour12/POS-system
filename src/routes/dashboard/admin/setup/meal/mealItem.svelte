@@ -63,7 +63,9 @@
             <Form.Label>Meal Price</Form.Label>
             <Input
                 {...attrs}
-                bind:value={$formData.description}
+                type="number"
+                step="0.01"
+                bind:value={$formData.price}
                 autocomplete="false"
             />
         </Form.Control>
@@ -74,13 +76,13 @@
             <Form.Label>Meal Image</Form.Label>
             <Input
                 {...attrs}
-                bind:value={$formData.description}
+                bind:value={$formData.image}
                 autocomplete="false"
             />
         </Form.Control>
         <Form.FieldErrors />
     </Form.Field>
-     <Form.Field {form} name="category_id">
+    <Form.Field {form} name="category_id">
         <Form.Control let:attrs>
             <Form.Label>Role</Form.Label>
             <Select.Root
