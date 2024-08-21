@@ -10,11 +10,16 @@
     } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
     import { mealItemSchema, type MealItemSchema } from "./schema";
-    import type { PageData } from "./$types";
 
-    type Props = SuperValidated<Infer<MealItemSchema>>;
+    type Props = SuperValidated<Infer<MealItemSchema>>
+    type CategoriesProps = {
+    description: string;
+    name: string;
+    id: number;
+    }[]
 
-    let { data,catData }: { data: Props,catData:PageData } = $props();
+    let { data, categoryData }: { data: Props, categoryData:CategoriesProps  } = $props();
+
 
     const form = superForm(data.data, {
         validators: zodClient(mealItemSchema),
@@ -24,6 +29,8 @@
     let selectedCategory = $formData.category_id
         ? { label: $formData.category_id, value: $formData.category_id }
         : undefined;
+
+      
 </script>
 
 
@@ -73,19 +80,7 @@
         </Form.Control>
         <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="image">
-        <Form.Control let:attrs>
-            <Form.Label>Meal Image</Form.Label>
-            <Input
-                {...attrs}
-                bind:value={$formData.description}
-                autocomplete="false"
-            />
-        </Form.Control>
-        <Form.FieldErrors />
-    </Form.Field>
-
-    <Form.Field {form} name="category_id">
+     <Form.Field {form} name="category_id">
         <Form.Control let:attrs>
             <Form.Label>Role</Form.Label>
             <Select.Root
@@ -98,13 +93,13 @@
                     <Select.Value placeholder="Select Category" />
                 </Select.Trigger>
                 <Select.Content>
-                    <!-- <Select.Item value="worker" label="Worker" /> -->
-                    {#each data.categories as category}
+                    <!--  <Select.Item value="worker" label="Worker" />  -->
+                    {#each categoryData as category}
                         <Select.Item
                             value={category.id}
                             label={category.name}
                         />
-                    {/each}
+                    {/each} 
                 </Select.Content>
             </Select.Root>
             <input
